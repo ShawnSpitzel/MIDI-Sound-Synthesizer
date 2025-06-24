@@ -1,0 +1,28 @@
+﻿  main.cpp
+C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\Music Synthesizer\soundMaker.h(66,18): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+  (compiling source file 'main.cpp')
+      C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\Music Synthesizer\soundMaker.h(66,18):
+      the template instantiation context (the oldest one first) is
+          C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\Music Synthesizer\main.cpp(13,50):
+          see reference to class template instantiation 'olcNoiseMaker<short>' being compiled
+          C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\Music Synthesizer\soundMaker.h(46,7):
+          while compiling class template member function 'bool olcNoiseMaker<short>::Create(std::wstring,unsigned int,unsigned int,unsigned int,unsigned int)'
+              C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\Music Synthesizer\soundMaker.h(38,9):
+              see the first reference to 'olcNoiseMaker<short>::Create' in 'olcNoiseMaker<short>::olcNoiseMaker'
+              C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\Music Synthesizer\main.cpp(16,28):
+              see the first reference to 'olcNoiseMaker<short>::olcNoiseMaker' in 'main'
+  
+C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\Music Synthesizer\soundMaker.h(194,4): warning C4312: 'type cast': conversion from 'DWORD' to 'olcNoiseMaker<short> *' of greater size
+  (compiling source file 'main.cpp')
+      C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\Music Synthesizer\soundMaker.h(194,4):
+      the template instantiation context (the oldest one first) is
+          C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\Music Synthesizer\soundMaker.h(192,23):
+          while compiling class template member function 'void olcNoiseMaker<short>::waveOutProcWrap(HWAVEOUT,UINT,DWORD,DWORD,DWORD)'
+              C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\Music Synthesizer\soundMaker.h(77,4):
+              see the first reference to 'olcNoiseMaker<short>::waveOutProcWrap' in 'olcNoiseMaker<short>::Create'
+              C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\Music Synthesizer\soundMaker.h(38,9):
+              see the first reference to 'olcNoiseMaker<short>::Create' in 'olcNoiseMaker<short>::olcNoiseMaker'
+              C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\Music Synthesizer\main.cpp(16,28):
+              see the first reference to 'olcNoiseMaker<short>::olcNoiseMaker' in 'main'
+  
+  Music Synthesizer.vcxproj -> C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\x64\Debug\Music Synthesizer.exe

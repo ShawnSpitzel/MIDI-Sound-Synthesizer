@@ -1,0 +1,29 @@
+﻿  main.cpp
+C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\Music Synthesizer\soundMaker.h(85,22): error C3861: 'olcNoiseMaker': identifier not found
+  (compiling source file 'main.cpp')
+      C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\Music Synthesizer\soundMaker.h(85,22):
+      the template instantiation context (the oldest one first) is
+          C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\Music Synthesizer\soundMaker.h(17,7):
+          while compiling class template 'NoiseMaker'
+  
+C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\Music Synthesizer\soundMaker.h(85,22): error C2065: 'olcNoiseMaker': undeclared identifier
+  (compiling source file 'main.cpp')
+  
+C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\Music Synthesizer\soundMaker.h(181,5): error C2065: 'olcNoiseMaker': undeclared identifier
+  (compiling source file 'main.cpp')
+  
+C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\Music Synthesizer\soundMaker.h(181,19): error C2760: syntax error: ')' was unexpected here; expected 'expression'
+  (compiling source file 'main.cpp')
+  
+C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\Music Synthesizer\soundMaker.h(181,19): error C2760: syntax error: ')' was unexpected here; expected ';'
+  (compiling source file 'main.cpp')
+  
+C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\Music Synthesizer\soundMaker.h(181,19): error C3878: syntax error: unexpected token ')' following 'expression-statement'
+  (compiling source file 'main.cpp')
+  
+C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\Music Synthesizer\soundMaker.h(181,30): error C2760: syntax error: ')' was unexpected here; expected ';'
+  (compiling source file 'main.cpp')
+  
+C:\Users\kevin\source\repos\C++ Intermediate\Music Synthesizer\Music Synthesizer\soundMaker.h(181,30): error C3878: syntax error: unexpected token ')' following 'expression-statement'
+  (compiling source file 'main.cpp')
+  
