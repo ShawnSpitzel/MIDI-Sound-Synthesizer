@@ -17,7 +17,7 @@ template<class T>
 class NoiseMaker
 {
 public:
-	NoiseMaker(wstring sOutputDevice, unsigned int nSampleRate = 44100, unsigned int nChannels = 1, unsigned int nBlocks = 8, unsigned int nBlockSamples = 512)
+	NoiseMaker(wstring sOutputDevice, unsigned int nSampleRate = 44100, unsigned int nChannels = 1, unsigned int nBlocks = 8, unsigned int nBlockSamples = 512) //leave device name for user input
 	{
 		Create(sOutputDevice, nSampleRate, nChannels, nBlocks, nBlockSamples);
 	}
@@ -42,19 +42,19 @@ public:
 		m_userFunction = nullptr;
 
 		// Validate device
-		vector<wstring> devices = Enumerate();
-		auto d = std::find(devices.begin(), devices.end(), sOutputDevice);
+		vector<wstring> devices = GetDevices(); //get list of all devices
+		auto d = std::find(devices.begin(), devices.end(), sOutputDevice); //Find the given output device within list of available devices
 		if (d != devices.end())
 		{
-			// Device is available
+			// Device is available	
 			int nDeviceID = distance(devices.begin(), d);
-			WAVEFORMATEX waveFormat;
-			waveFormat.wFormatTag = WAVE_FORMAT_PCM;
-			waveFormat.nSamplesPerSec = m_nSampleRate;
-			waveFormat.wBitsPerSample = sizeof(T) * 8;
-			waveFormat.nChannels = m_nChannels;
-			waveFormat.nBlockAlign = (waveFormat.wBitsPerSample / 8) * waveFormat.nChannels;
-			waveFormat.nAvgBytesPerSec = waveFormat.nSamplesPerSec * waveFormat.nBlockAlign;
+			WAVEFORMATEX waveFormat; //information regarding our audio
+			waveFormat.wFormatTag = WAVE_FORMAT_PCM; //raw, uncompressed audio format, most common
+			waveFormat.nSamplesPerSec = m_nSampleRate; //use our inputted sample rate
+			waveFormat.wBitsPerSample = 32; //16 bits is good, 24 is great, 32 is excellent
+			waveFormat.nChannels = m_nChannels; //use our inputted number of channels (1 mono, 2 stereo)
+			waveFormat.nBlockAlign = (waveFormat.wBitsPerSample / 8) * waveFormat.nChannels; //standard formula
+			waveFormat.nAvgBytesPerSec = waveFormat.nSamplesPerSec * waveFormat.nBlockAlign; //standard formula
 			waveFormat.cbSize = 0;
 
 			// Open Device if valid
@@ -82,7 +82,7 @@ public:
 
 		m_bReady = true;
 
-		m_thread = thread(&olcNoiseMaker::MainThread, this);
+		m_thread = thread(&NoiseMaker::MainThread, this);
 
 		// Start the ball rolling
 		unique_lock<mutex> lm(m_muxBlockNotZero);
@@ -119,14 +119,14 @@ public:
 
 		
 public:
-	static vector<wstring> Enumerate() //
+	static vector<wstring> GetDevices() //Use wstring to hold wide character strings for device names
 	{
-		int nDeviceCount = waveOutGetNumDevs(); //windows API call to get a list of all available audio devices on the system
+		u_int nDeviceCount = waveOutGetNumDevs(); //windows API call to get a list of all available audio devices on the system
 		vector<wstring> sDevices;
-		WAVEOUTCAPS woc;
-		for (int n = 0; n < nDeviceCount; n++)
-			if (waveOutGetDevCaps(n, &woc, sizeof(WAVEOUTCAPS)) == S_OK)
-				sDevices.push_back(woc.szPname);
+		WAVEOUTCAPS deviceInfo; //Device info struct
+		for (int n = 0; n < nDeviceCount; n++) //iterate through all available devices
+			if (waveOutGetDevCaps(n, &deviceInfo, sizeof(WAVEOUTCAPS)) == S_OK) //get information for each device via device ID, store within device object
+				sDevices.push_back(deviceInfo.szPname);
 		return sDevices;
 	}
 
@@ -155,7 +155,7 @@ private:
 
 	T* m_pBlockMemory;
 	WAVEHDR* m_pWaveHeaders;
-	HWAVEOUT m_hwDevice;
+	HWAVEOUT m_hwDevice; //output device
 
 	thread m_thread;
 	atomic<bool> m_bReady;
@@ -168,6 +168,7 @@ private:
 	// Handler for soundcard request for more data
 	void waveOutProc(HWAVEOUT hWaveOut, UINT uMsg, DWORD dwParam1, DWORD dwParam2)
 	{
+		//Make space for a new block to be used once audio is finished playing
 		if (uMsg != WOM_DONE) return;
 
 		m_nBlockFree++;
@@ -178,7 +179,7 @@ private:
 	// Static wrapper for sound card handler
 	static void CALLBACK waveOutProcWrap(HWAVEOUT hWaveOut, UINT uMsg, DWORD dwInstance, DWORD dwParam1, DWORD dwParam2)
 	{
-		((olcNoiseMaker*)dwInstance)->waveOutProc(hWaveOut, uMsg, dwParam1, dwParam2);
+		((NoiseMaker*)dwInstance)->waveOutProc(hWaveOut, uMsg, dwParam1, dwParam2);
 	}
 
 	// Main thread. This loop responds to requests from the soundcard to fill 'blocks'

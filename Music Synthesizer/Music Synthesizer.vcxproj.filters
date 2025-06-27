@@ -26,5 +26,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="notes.md" />
+    <None Include="..\windowsAPI_notes.md">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="windowsAPI_notes.md" />
   </ItemGroup>
 </Project>
